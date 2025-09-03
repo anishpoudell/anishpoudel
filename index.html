@@ -158,6 +158,66 @@ I have built a <b>solid foundation in business economics </b> and continuously s
     <button data-q="contact">📬 How to contact you?</button>
   </div>
 </div>
+    <script>
+const chatbotBtn = document.getElementById("chatbot-button");
+const chatbotWindow = document.getElementById("chatbot-window");
+const closeChat = document.getElementById("close-chat");
+const chatMessages = document.getElementById("chat-messages");
+const questionButtons = document.querySelectorAll(".chat-questions button");
+
+// Predefined answers
+const answers = {
+  number: "📞 You can reach me at: +977-9814985729",
+  work: "💼 I am a Senior Financial Accountant at Durga Steel Industries Pvt. Ltd.",
+  experience: "⏳ I have over 5 years of experience in accounting and finance.",
+  skills: "🛠️ My skills include Accounting, Taxation, Bookkeeping, Auditing, and Financial Analysis.",
+  education: "🎓 I completed my Bachelor's degree in Business Studies (BBS) in 2025.",
+  testimonial: "⭐ Clients describe me as professional, reliable, and detail-oriented.",
+  contact: "📬 You can contact me via WhatsApp, LinkedIn, or Email from the links on my website."
+};
+
+// Load chat history
+function loadChat() {
+  const saved = localStorage.getItem("chatHistory");
+  if (saved) {
+    chatMessages.innerHTML = saved;
+  }
+}
+
+// Save chat history
+function saveChat() {
+  localStorage.setItem("chatHistory", chatMessages.innerHTML);
+}
+
+// Add message
+function addMessage(text, sender) {
+  const div = document.createElement("div");
+  div.classList.add("message", sender);
+  div.innerText = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  saveChat();
+}
+
+// Handle question clicks
+questionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const key = btn.getAttribute("data-q");
+    addMessage(btn.innerText, "user");
+    setTimeout(() => {
+      addMessage(answers[key], "bot");
+    }, 500);
+  });
+});
+
+// Open/close chatbot
+chatbotBtn.addEventListener("click", () => chatbotWindow.classList.toggle("hidden"));
+closeChat.addEventListener("click", () => chatbotWindow.classList.add("hidden"));
+
+// Init
+loadChat();
+</script>
+
 
 </body>
 <footer>
@@ -179,6 +239,7 @@ I have built a <b>solid foundation in business economics </b> and continuously s
 </footer>
 
 </html>
+
 
 
 
